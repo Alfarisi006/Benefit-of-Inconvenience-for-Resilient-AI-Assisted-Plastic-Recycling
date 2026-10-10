@@ -1,0 +1,1137 @@
+{UTF-8}
+Fuben eki switch=1
+	~	Dmnl
+	~		|
+
+Commitment=Fuben eki switch*Learning rate*Relative performance gap*(1-Fuben eki)
+	~	1/Month
+	~		|
+
+Audit Intensity Adv= INTEG (Audit adjusment,
+		Min Audit)
+	~	Dmnl
+	~		|
+
+Drift shock magnitude Adv=0.1
+	~	1/Month
+	~		|
+
+Rework time=1
+	~	Month
+	~		|
+
+Drift extra Adv=Shock Adv*Drift shock magnitude Adv
+	~	1/Month
+	~		|
+
+Contamination removal Adv=MIN ( Contamination stock Adv / Rework time , Rework Capacity Adv\
+		 )
+	~	Ton/Month
+	~		|
+
+Relative performance gap=MAX ( 0 , (Performance deterioration- Performance expected deterioration\
+		) / Performance expected deterioration )
+	~	Dmnl
+	~		|
+
+Human intervention burden=Audit Intensity Adv*Intervention burden factor
+	~	Dmnl
+	~		|
+
+Intervention burden factor=0.2
+	~	Dmnl
+	~		|
+
+Decay=Forgetting rate*(1 - MIN ( 1 , Relative performance gap))*Fuben eki
+	~	1/Month
+	~		|
+
+Performance expected deterioration=SMOOTH ( Performance deterioration , Expected adjustment time\
+		 )
+	~	Dmnl
+	~		|
+
+Cumulative emission Adv= INTEG (Total Emission Adv,
+		0)
+	~	tCO2
+	~		|
+
+Audit Target=Min Audit+(Max Audit-Min Audit)*MIN ( 1 , Relative performance gap+ 0.6 \
+		*Fuben eki )
+	~	Dmnl
+	~		|
+
+Total Emission Adv=Virgin demand Adv*EF Resin and Forming Adv+Recycled output Adv*EF Recycled Adv\
+		+Contamination removal Adv*EF Rework Adv
+	~	tCO2/Month
+	~		|
+
+Expected adjustment time=6
+	~	Month
+	~		|
+
+Acc deacy=AI Model Accuracy*Concept drift rate
+	~	1/Month
+	~		|
+
+Acc decay Adv=AI Model Accuracy Adv*Concept drift rate Adv
+	~	1/Month
+	~		|
+
+Acc gain=ACC learn rate*Audit Intensity*(1-AI Model Accuracy)
+	~	1/Month
+	~		|
+
+Acc gain Adv=ACC learn rate Adv*Audit Intensity Adv*(1-AI Model Accuracy Adv)
+	~	1/Month
+	~		|
+
+ACC learn rate=0.4
+	~	1/Month
+	~		|
+
+ACC learn rate Adv=0.4
+	~	1/Month
+	~		|
+
+Ai Effect=0.7
+	~	Dmnl
+	~		|
+
+Ai Effect Adv=0.7
+	~	Dmnl
+	~		|
+
+AI Model Accuracy= INTEG (Acc gain-Acc deacy,
+		0.7)
+	~	Dmnl
+	~		|
+
+AI Model Accuracy Adv= INTEG (Acc gain Adv-Acc decay Adv,
+		0.8)
+	~	Dmnl
+	~		|
+
+Audit adjusment=(Audit Target - Audit Intensity Adv) / Audit adjust time
+	~	Dmnl/Month
+	~		|
+
+Audit adjust time=2
+	~	Month
+	~		|
+
+Audit Intensity=Base Audit+"Fuben-Eki"
+	~	Dmnl
+	~		|
+
+Automation Bias=0.25
+	~	Dmnl
+	~		|
+
+Automation Bias Adv=0.25
+	~	Dmnl
+	~		|
+
+Base Audit=0.05
+	~	Dmnl
+	~		|
+
+Base Error=0.18+0.05*Shock
+	~	Dmnl
+	~		|
+
+Base Error Adv=0.18+0.05*Shock Adv
+	~	Dmnl
+	~		|
+
+Base recycled share=0.6
+	~	Dmnl
+	~		|
+
+Base recycled share Adv=0.6
+	~	Dmnl
+	~		|
+
+Concept drift rate=Concept drift base+Drift extra
+	~	1/Month
+	~		|
+
+Concept drift rate Adv=Concept drift base Adv+Drift extra Adv
+	~	1/Month
+	~		|
+
+Concept drift base=0.05
+	~	1/Month
+	~		|
+
+Concept drift base Adv=0.05
+	~	1/Month
+	~		|
+
+Contam ref=120
+	~	Ton
+	~		|
+
+Contamination generation=Plastic Input*Sorting Error rate
+	~	Ton/Month
+	~		|
+
+Contamination generation Adv=Plastic Input Adv*Sorting Error rate Adv
+	~	Ton/Month
+	~		|
+
+Contamination removal=Rework Capacity*Contamination stock/(Contamination stock+K half\
+		)
+	~	Ton/Month
+	~		|
+
+Contamination stock= INTEG (Contamination generation-Contamination removal,
+		50)
+	~	Ton
+	~		|
+
+Contamination stock Adv= INTEG (Contamination generation Adv-Contamination removal Adv\
+		,
+		50)
+	~	Ton
+	~		|
+
+Demand Total=900
+	~	Ton/Month
+	~		|
+
+Demand Total Adv=900
+	~	Ton/Month
+	~		|
+
+Drift extra=0.1
+	~	1/Month
+	~		|
+
+EF Recycled=0.7
+	~	tCO2/Ton
+	~		|
+
+EF Recycled Adv=0.8
+	~	tCO2/Ton
+	~		|
+
+EF Rework=0.2
+	~	tCO2/Ton
+	~		|
+
+EF Rework Adv=0.74
+	~	tCO2/Ton
+	~	Make it same as forming
+	|
+
+EF Virgin=2.5
+	~	tCO2/Ton
+	~		|
+
+EF Resin and Forming Adv=2.46
+	~	tCO2/Ton
+	~		|
+
+Error ref=0.12
+	~	Dmnl
+	~		|
+
+Forget rate=0.1
+	~	1/Month
+	~		|
+
+Forget rate Adv=0.1
+	~	1/Month
+	~		|
+
+Forgetting rate=0.05
+	~	1/Month
+	~		|
+
+Fuben eki= INTEG (Commitment-Decay,
+		0)
+	~	Dmnl
+	~		|
+
+"Fuben-Eki"=0
+	~	Dmnl
+	~		|
+
+Human Effect=0.6
+	~	Dmnl
+	~		|
+
+Human Effect Adv=0.6
+	~	Dmnl
+	~		|
+
+K half=200
+	~	Ton
+	~		|
+
+Learn rate=0.6
+	~	1/Month
+	~		|
+
+Learn rate Adv=0.6
+	~	1/Month
+	~		|
+
+Learning rate=0.2
+	~	1/Month
+	~		|
+
+Max Audit=0.3
+	~	Dmnl
+	~		|
+
+Min Audit=0.05
+	~	Dmnl
+	~		|
+
+Min Verification=0.5
+	~	Dmnl
+	~		|
+
+Max Verification Adv=0.5
+	~	Dmnl
+	~		|
+
+Operator Skill= INTEG (Skill gain-Skill decay,
+		0.4)
+	~	Dmnl
+	~		|
+
+Operator Skill Adv= INTEG (Skill gain Adv-Skill decay Adv,
+		0.8)
+	~	Dmnl
+	~		|
+
+Performance deterioration=0.5*MIN ( 1 , Sorting Error rate Adv/Error ref ) + 0.5*MIN \
+		( 1 , Contamination stock Adv/Contam ref )
+	~	Dmnl
+	~		|
+
+Plastic Input=1000
+	~	Ton/Month
+	~		|
+
+Plastic Input Adv=1000
+	~	Ton/Month
+	~		|
+
+Quality Index=1/(1+Quality Sensitivity*Contamination stock/Plastic Input)
+	~	Dmnl
+	~		|
+
+Quality Index Adv=1/(1+Quality Sensitivity Adv*Contamination stock Adv/Plastic Input Adv\
+		)
+	~	Dmnl
+	~		|
+
+Quality Sensitivity=3
+	~	Dmnl
+	~		|
+
+Quality Sensitivity Adv=3
+	~	Dmnl
+	~		|
+
+Recycled output=Demand Total*Recycled share
+	~	Ton/Month
+	~		|
+
+Recycled output Adv=Demand Total Adv*Recycled share Adv
+	~	Ton/Month
+	~		|
+
+Recycled share=Base recycled share*Quality Index
+	~	Dmnl
+	~		|
+
+Recycled share Adv=Base recycled share Adv*Quality Index Adv
+	~	Dmnl
+	~		|
+
+Rework Capacity=120
+	~	Ton/Month
+	~		|
+
+Rework Capacity Adv=120
+	~	Ton/Month
+	~		|
+
+Shock=PULSE ( 12 , 1 )
+	~	Dmnl
+	~		|
+
+Shock Adv=STEP(1,30)-STEP(1,36)
+	~	Dmnl
+	~		|
+
+Shock Sensitivity=0.8
+	~	Dmnl
+	~		|
+
+Shock Sensitivity Adv=0.8
+	~	Dmnl
+	~		|
+
+Skill decay=Forget rate*(1-Audit Intensity)*Operator Skill
+	~	1/Month
+	~		|
+
+Skill decay Adv=Forget rate Adv*(1-Audit Intensity Adv)*Operator Skill Adv
+	~	1/Month
+	~		|
+
+Skill gain=Learn rate*Audit Intensity*(1-Operator Skill)
+	~	1/Month
+	~		|
+
+Skill gain Adv=Learn rate Adv*Audit Intensity Adv*(1-Operator Skill Adv)
+	~	1/Month
+	~		|
+
+Sorting Error rate=Base Error*(1-Human Effect*Operator Skill)*(1-Ai Effect*AI Model Accuracy\
+		)*(1+Automation Bias*Trust AI*(1-Verification Effort))
+	~	Dmnl
+	~		|
+
+Sorting Error rate Adv=Base Error Adv*(1-Human Effect Adv*Operator Skill Adv)*(1-Ai Effect Adv\
+		*AI Model Accuracy Adv)*(1+Automation Bias Adv*Trust AI Adv*(1-Verification Effort Adv\
+		))
+	~	Dmnl
+	~		|
+
+Total Emission=Virgin demand*EF Virgin+Recycled output*EF Recycled+Contamination removal\
+		*EF Rework
+	~	tCO2/Month
+	~		|
+
+Trust AI= INTEG (Trust gain-Trust decay,
+		0.6)
+	~	Dmnl
+	~		|
+
+Trust AI Adv= INTEG (Trust gain Adv-Trust decay Adv,
+		0.7)
+	~	Dmnl
+	~		|
+
+Trust decay=Shock*Shock Sensitivity*Trust AI
+	~	1/Month
+	~		|
+
+Trust decay Adv=Shock Adv*Shock Sensitivity Adv*Trust AI Adv
+	~	1/Month
+	~		|
+
+Trust gain=Trust speed*(AI Model Accuracy-Trust AI)
+	~	1/Month
+	~		|
+
+Trust gain Adv=Trust speed Adv*(AI Model Accuracy Adv-Trust AI Adv)
+	~	1/Month
+	~		|
+
+Trust speed=0.5
+	~	1/Month
+	~		|
+
+Trust speed Adv=0.5
+	~	1/Month
+	~		|
+
+Verification Effort=MIN ( Min Verification , Audit Intensity * (1 - Trust AI ))
+	~	Dmnl
+	~		|
+
+Verification Effort Adv=MIN ( Max Verification Adv , Audit Intensity Adv * (1 - Trust AI Adv\
+		 ))
+	~	Dmnl
+	~		|
+
+Virgin demand=Demand Total*(1-Recycled share)
+	~	Ton/Month
+	~		|
+
+Virgin demand Adv=Demand Total Adv*(1-Recycled share Adv)
+	~	Ton/Month
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 1
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Initial Model
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,79,2
+10,1,Operator Skill,567,605,46,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,2,AI Model Accuracy,563,816,49,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,3,Trust AI,562,1027,46,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,4,Contamination stock,1138,305,55,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,5,48,352,604,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,6,8,5,100,0,0,22,0,192,0,-1--1--1,,1|(398,604)|
+1,7,8,1,4,0,0,22,0,192,0,-1--1--1,,1|(484,604)|
+11,8,0,441,604,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,9,Skill gain,441,638,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,10,48,781,605,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,11,13,1,100,0,0,22,0,192,0,-1--1--1,,1|(649,605)|
+1,12,13,10,4,0,0,22,0,192,0,-1--1--1,,1|(734,605)|
+11,13,0,692,605,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,14,Skill decay,692,639,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,15,48,351,821,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,16,18,15,100,0,0,22,0,192,0,-1--1--1,,1|(396,821)|
+1,17,18,2,4,0,0,22,0,192,0,-1--1--1,,1|(478,821)|
+11,18,0,437,821,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,19,Acc gain,437,855,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,20,48,790,816,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,21,23,2,100,0,0,22,0,192,0,-1--1--1,,1|(651,816)|
+1,22,23,20,4,0,0,22,0,192,0,-1--1--1,,1|(741,816)|
+11,23,0,696,816,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,24,Acc deacy,696,850,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,25,48,344,1023,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,26,28,25,100,0,0,22,0,192,0,-1--1--1,,1|(390,1023)|
+1,27,28,3,4,0,0,22,0,192,0,-1--1--1,,1|(477,1023)|
+11,28,0,432,1023,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,29,Trust gain,432,1057,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,30,48,776,1025,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,31,33,3,100,0,0,22,0,192,0,-1--1--1,,1|(643,1025)|
+1,32,33,30,4,0,0,22,0,192,0,-1--1--1,,1|(728,1025)|
+11,33,0,684,1025,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,34,Trust decay,684,1059,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,35,48,936,301,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,36,38,35,100,0,0,22,0,192,0,-1--1--1,,1|(977,301)|
+1,37,38,4,4,0,0,22,0,192,0,-1--1--1,,1|(1051,301)|
+11,38,0,1014,301,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,39,Contamination generation,1014,335,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,40,48,1351,305,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,41,43,4,100,0,0,22,0,192,0,-1--1--1,,1|(1227,305)|
+1,42,43,40,4,0,0,22,0,192,0,-1--1--1,,1|(1307,305)|
+11,43,0,1267,305,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,44,Contamination removal,1267,339,61,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,45,Base Audit,521,252,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,46,"Fuben-Eki",449,150,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,47,Audit Intensity,434,331,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,48,Min Verification,584,148,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,49,Verification Effort,587,329,47,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,50,Base Error,1219,662,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,51,Human Effect,1090,496,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,52,Ai Effect,1219,592,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,53,Automation Bias,1226,503,48,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,54,Sorting Error rate,1073,592,47,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,55,Plastic Input,1018,119,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,56,Rework Capacity,1160,120,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,57,K half,1307,125,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,58,Quality Sensitivity,1563,458,48,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,59,Quality Index,1726,463,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,60,Demand Total,1872,467,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,61,Base recycled share,1562,674,53,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,62,Recycled share,1559,566,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,63,Virgin demand,1870,570,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,64,Recycled output,1718,569,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,65,Shock,931,1114,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,66,Shock Sensitivity,930,1017,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,67,Learn rate,214,618,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,68,Forget rate,213,703,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,69,ACC learn rate,212,864,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,70,Concept drift base,1073,914,49,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,71,Drift extra,1070,810,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,72,Trust speed,210,988,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,73,45,47,1,0,0,0,0,192,0,-1--1--1,,1|(460,274)|
+1,74,46,47,1,0,0,0,0,192,0,-1--1--1,,1|(425,206)|
+1,75,48,49,1,0,0,0,0,192,0,-1--1--1,,1|(613,236)|
+1,76,47,49,1,0,0,0,0,192,0,-1--1--1,,1|(488,362)|
+1,77,3,49,1,0,0,0,0,192,0,-1--1--1,,1|(668,716)|
+1,78,67,9,1,0,0,0,0,192,0,-1--1--1,,1|(348,585)|
+1,79,47,9,1,0,0,0,0,192,0,-1--1--1,,1|(398,519)|
+1,80,1,9,1,0,0,0,0,192,0,-1--1--1,,1|(501,527)|
+1,81,68,14,1,0,0,0,0,192,0,-1--1--1,,1|(537,714)|
+1,82,47,14,1,0,0,0,0,192,0,-1--1--1,,1|(527,471)|
+1,83,1,14,1,0,0,0,0,192,0,-1--1--1,,1|(599,647)|
+10,84,Concept drift rate,936,863,48,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,85,70,84,1,0,0,0,0,192,0,-1--1--1,,1|(974,899)|
+1,86,71,84,1,0,0,0,0,192,0,-1--1--1,,1|(950,835)|
+1,87,69,19,1,0,0,0,0,192,0,-1--1--1,,1|(387,815)|
+1,88,47,19,1,0,0,0,0,192,0,-1--1--1,,1|(363,739)|
+1,89,2,19,1,0,0,0,0,192,0,-1--1--1,,1|(498,780)|
+1,90,84,24,1,0,0,0,0,192,0,-1--1--1,,1|(752,801)|
+1,91,2,24,1,0,0,0,0,192,0,-1--1--1,,1|(635,868)|
+1,92,72,29,1,0,0,0,0,192,0,-1--1--1,,1|(369,987)|
+1,93,2,29,1,0,0,0,0,192,0,-1--1--1,,1|(443,927)|
+1,94,3,29,1,0,0,0,0,192,0,-1--1--1,,1|(507,985)|
+1,95,66,34,1,0,0,0,0,192,0,-1--1--1,,1|(713,1035)|
+1,96,65,34,1,0,0,0,0,192,0,-1--1--1,,1|(788,1095)|
+1,97,3,34,1,0,0,0,0,192,0,-1--1--1,,1|(600,1086)|
+1,98,50,54,1,0,0,0,0,192,0,-1--1--1,,1|(1105,665)|
+1,99,51,54,1,0,0,0,0,192,0,-1--1--1,,1|(1088,546)|
+1,100,1,54,1,0,0,0,0,192,0,-1--1--1,,1|(829,641)|
+1,101,52,54,1,0,0,0,0,192,0,-1--1--1,,1|(1153,606)|
+1,102,2,54,1,0,0,0,0,192,0,-1--1--1,,1|(829,738)|
+1,103,53,54,1,0,0,0,0,192,0,-1--1--1,,1|(1173,566)|
+1,104,3,54,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,105,49,54,1,0,0,0,0,192,0,-1--1--1,,1|(827,502)|
+1,106,65,50,1,0,0,0,0,192,0,-1--1--1,,1|(1217,857)|
+1,107,55,39,1,0,0,0,0,192,0,-1--1--1,,1|(983,244)|
+1,108,54,39,1,0,0,0,0,192,0,-1--1--1,,1|(1007,444)|
+1,109,56,44,1,0,0,0,0,192,0,-1--1--1,,1|(1216,184)|
+1,110,4,44,1,0,0,0,0,192,0,-1--1--1,,1|(1208,278)|
+1,111,57,44,1,0,0,0,0,192,0,-1--1--1,,1|(1311,201)|
+1,112,58,59,1,0,0,0,0,192,0,-1--1--1,,1|(1624,409)|
+1,113,4,59,1,0,0,0,0,192,0,-1--1--1,,1|(1371,459)|
+1,114,55,59,1,0,0,0,0,192,0,-1--1--1,,1|(1490,195)|
+1,115,61,62,1,0,0,0,0,192,0,-1--1--1,,1|(1531,623)|
+1,116,59,62,1,0,0,0,0,192,0,-1--1--1,,1|(1662,529)|
+1,117,60,64,1,0,0,0,0,192,0,-1--1--1,,1|(1763,518)|
+1,118,62,64,1,0,0,0,0,192,0,-1--1--1,,1|(1675,598)|
+1,119,60,63,1,0,0,0,0,192,0,-1--1--1,,1|(1897,495)|
+1,120,62,63,1,0,0,0,0,192,0,-1--1--1,,1|(1721,638)|
+10,121,EF Virgin,1834,887,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,122,EF Recycled,1684,974,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,123,EF Rework,1836,967,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,124,Total Emission,1694,887,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,125,63,124,1,0,0,0,0,192,0,-1--1--1,,1|(1778,819)|
+1,126,121,124,1,0,0,0,0,192,0,-1--1--1,,1|(1758,912)|
+1,127,64,124,1,0,0,0,0,192,0,-1--1--1,,1|(1724,734)|
+1,128,122,124,1,0,0,0,0,192,0,-1--1--1,,1|(1677,929)|
+1,129,44,124,1,0,0,0,0,192,0,-1--1--1,,1|(1379,597)|
+1,130,123,124,1,0,0,0,0,192,0,-1--1--1,,1|(1740,947)|
+12,131,0,2302,186,291,180,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+Sorting Error rate,Graph
+12,132,0,2301,555,291,180,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+Contamination stock,Graph
+12,133,0,2300,929,290,188,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+Quality Index,Graph
+12,134,0,2897,187,285,180,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+Recycled share,Graph
+12,135,0,2897,555,285,182,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+Virgin demand,Graph
+12,136,0,2896,929,286,188,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+Total Emission,Graph
+12,137,0,3478,187,283,181,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+Operator Skill,Graph
+12,138,0,3478,552,284,180,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+AI Model Accuracy,Graph
+12,139,0,3477,926,284,190,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+Trust AI,Graph
+12,140,0,4048,185,277,180,8,15,0,0,2,0,0,0,0,0,0,0,0,0
+Verification Effort,Graph
+12,141,0,-259,202,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Comparison_QI
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 2
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,76,2
+10,1,Operator Skill Adv,603,461,46,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,2,AI Model Accuracy Adv,599,672,49,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,3,Trust AI Adv,598,883,46,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,4,Contamination stock Adv,1179,161,55,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,5,48,388,460,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,6,8,5,100,0,0,22,0,192,0,-1--1--1,,1|(434,460)|
+1,7,8,1,4,0,0,22,0,192,0,-1--1--1,,1|(520,460)|
+11,8,0,477,460,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,9,Skill gain Adv,477,494,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,10,48,817,461,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,11,13,1,100,0,0,22,0,192,0,-1--1--1,,1|(685,461)|
+1,12,13,10,4,0,0,22,0,192,0,-1--1--1,,1|(770,461)|
+11,13,0,728,461,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,14,Skill decay Adv,728,495,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,15,48,387,677,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,16,18,15,100,0,0,22,0,192,0,-1--1--1,,1|(432,677)|
+1,17,18,2,4,0,0,22,0,192,0,-1--1--1,,1|(514,677)|
+11,18,0,473,677,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,19,Acc gain Adv,473,711,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,20,48,826,672,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,21,23,2,100,0,0,22,0,192,0,-1--1--1,,1|(687,672)|
+1,22,23,20,4,0,0,22,0,192,0,-1--1--1,,1|(777,672)|
+11,23,0,732,672,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,24,Acc decay Adv,732,706,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,25,48,380,879,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,26,28,25,100,0,0,22,0,192,0,-1--1--1,,1|(426,879)|
+1,27,28,3,4,0,0,22,0,192,0,-1--1--1,,1|(513,879)|
+11,28,0,468,879,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,29,Trust gain Adv,468,913,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,30,48,812,881,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,31,33,3,100,0,0,22,0,192,0,-1--1--1,,1|(679,881)|
+1,32,33,30,4,0,0,22,0,192,0,-1--1--1,,1|(764,881)|
+11,33,0,720,881,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,34,Trust decay Adv,720,915,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,35,48,972,157,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,36,38,35,100,0,0,22,0,192,0,-1--1--1,,1|(1013,157)|
+1,37,38,4,4,0,0,22,0,192,0,-1--1--1,,1|(1090,157)|
+11,38,0,1050,157,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,39,Contamination generation Adv,1050,191,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,40,48,1387,161,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,41,43,4,100,0,0,22,0,192,0,-1--1--1,,1|(1265,161)|
+1,42,43,40,4,0,0,22,0,192,0,-1--1--1,,1|(1343,161)|
+11,43,0,1303,161,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,44,Contamination removal Adv,1303,195,61,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,45,Max Verification Adv,794,133,54,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,46,Verification Effort Adv,623,185,47,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,47,Base Error Adv,1255,518,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,48,Human Effect Adv,1126,352,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,49,Ai Effect Adv,1255,448,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,50,Automation Bias Adv,1262,359,48,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,51,Sorting Error rate Adv,1109,448,47,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,52,Plastic Input Adv,1054,-25,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,53,Rework Capacity Adv,1196,-24,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,54,Quality Sensitivity Adv,1599,314,48,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,55,Quality Index Adv,1762,319,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,56,Demand Total Adv,1908,323,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,57,Base recycled share Adv,1598,530,53,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,58,Recycled share Adv,1595,422,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,59,Virgin demand Adv,1906,426,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,60,Recycled output Adv,1754,425,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,61,Shock Adv,967,970,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,62,Shock Sensitivity Adv,966,873,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,63,Learn rate Adv,250,474,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,64,Forget rate Adv,249,559,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,65,ACC learn rate Adv,248,720,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,66,Concept drift base Adv,1109,770,49,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,67,Drift extra Adv,1106,666,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,68,Trust speed Adv,246,844,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,69,45,46,1,0,0,0,0,192,0,-1--1--1,,1|(721,184)|
+1,70,3,46,1,0,0,0,0,192,0,-1--1--1,,1|(704,572)|
+1,71,63,9,1,0,0,0,0,192,0,-1--1--1,,1|(384,441)|
+1,72,1,9,1,0,0,0,0,192,0,-1--1--1,,1|(537,383)|
+1,73,64,14,1,0,0,0,0,192,0,-1--1--1,,1|(573,570)|
+1,74,1,14,1,0,0,0,0,192,0,-1--1--1,,1|(635,503)|
+10,75,Concept drift rate Adv,972,719,58,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,76,66,75,1,0,0,0,0,192,0,-1--1--1,,1|(1010,755)|
+1,77,67,75,1,0,0,0,0,192,0,-1--1--1,,1|(986,691)|
+1,78,65,19,1,0,0,0,0,192,0,-1--1--1,,1|(423,671)|
+1,79,2,19,1,0,0,0,0,192,0,-1--1--1,,1|(534,636)|
+1,80,75,24,1,0,0,0,0,192,0,-1--1--1,,1|(788,657)|
+1,81,2,24,1,0,0,0,0,192,0,-1--1--1,,1|(671,724)|
+1,82,68,29,1,0,0,0,0,192,0,-1--1--1,,1|(405,843)|
+1,83,2,29,1,0,0,0,0,192,0,-1--1--1,,1|(479,783)|
+1,84,3,29,1,0,0,0,0,192,0,-1--1--1,,1|(543,841)|
+1,85,62,34,1,0,0,0,0,192,0,-1--1--1,,1|(749,891)|
+1,86,61,34,1,0,0,0,0,192,0,-1--1--1,,1|(824,951)|
+1,87,3,34,1,0,0,0,0,192,0,-1--1--1,,1|(636,942)|
+1,88,47,51,1,0,0,0,0,192,0,-1--1--1,,1|(1141,521)|
+1,89,48,51,1,0,0,0,0,192,0,-1--1--1,,1|(1124,402)|
+1,90,1,51,1,0,0,0,0,192,0,-1--1--1,,1|(865,497)|
+1,91,49,51,1,0,0,0,0,192,0,-1--1--1,,1|(1189,462)|
+1,92,2,51,1,0,0,0,0,192,0,-1--1--1,,1|(865,594)|
+1,93,50,51,1,0,0,0,0,192,0,-1--1--1,,1|(1209,422)|
+1,94,3,51,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,95,46,51,1,0,0,0,0,192,0,-1--1--1,,1|(863,358)|
+1,96,61,47,1,0,0,0,0,192,0,-1--1--1,,1|(1253,713)|
+1,97,52,39,1,0,0,0,0,192,0,-1--1--1,,1|(1019,100)|
+1,98,51,39,1,0,0,0,0,192,0,-1--1--1,,1|(1043,300)|
+1,99,53,44,1,0,0,0,0,192,0,-1--1--1,,1|(1252,40)|
+1,100,4,44,1,0,0,0,0,192,0,-1--1--1,,1|(1247,136)|
+1,101,54,55,1,0,0,0,0,192,0,-1--1--1,,1|(1660,265)|
+1,102,4,55,1,0,0,0,0,192,0,-1--1--1,,1|(1410,314)|
+1,103,52,55,1,0,0,0,0,192,0,-1--1--1,,1|(1526,51)|
+1,104,57,58,1,0,0,0,0,192,0,-1--1--1,,1|(1567,479)|
+1,105,55,58,1,0,0,0,0,192,0,-1--1--1,,1|(1698,385)|
+1,106,56,60,1,0,0,0,0,192,0,-1--1--1,,1|(1799,374)|
+1,107,58,60,1,0,0,0,0,192,0,-1--1--1,,1|(1711,454)|
+1,108,56,59,1,0,0,0,0,192,0,-1--1--1,,1|(1933,351)|
+1,109,58,59,1,0,0,0,0,192,0,-1--1--1,,1|(1757,494)|
+10,110,EF Resin and Forming Adv,1572,737,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,111,EF Recycled Adv,1620,798,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,112,EF Rework Adv,1722,820,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,113,Total Emission Adv,1730,743,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,114,59,113,1,0,0,0,0,192,0,-1--1--1,,1|(1814,675)|
+1,115,110,113,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,116,60,113,1,0,0,0,0,192,0,-1--1--1,,1|(1760,590)|
+1,117,111,113,1,0,0,0,0,192,0,-1--1--1,,1|(1672,763)|
+1,118,44,113,1,0,0,0,0,192,0,-1--1--1,,1|(1415,453)|
+1,119,112,113,1,0,0,0,0,192,0,-1--1--1,,1|(1711,771)|
+10,120,Fuben eki,580,-168,46,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,121,48,378,-168,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,122,124,121,100,0,0,22,0,192,0,-1--1--1,,1|(418,-168)|
+1,123,124,120,4,0,0,22,0,192,0,-1--1--1,,1|(497,-168)|
+11,124,0,454,-168,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,125,Commitment,454,-134,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+12,126,48,792,-168,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,127,129,120,100,0,0,22,0,192,0,-1--1--1,,1|(662,-168)|
+1,128,129,126,4,0,0,22,0,192,0,-1--1--1,,1|(746,-168)|
+11,129,0,704,-168,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,130,Decay,704,-134,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,131,Learning rate,453,-259,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,132,Forgetting rate,752,-254,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,133,131,125,1,0,0,0,0,192,0,-1--1--1,,1|(432,-218)|
+1,134,120,125,1,0,0,0,0,192,0,-1--1--1,,1|(518,-94)|
+1,135,132,130,1,0,0,0,0,192,0,-1--1--1,,1|(759,-208)|
+1,136,120,130,1,0,0,0,0,192,0,-1--1--1,,1|(636,-94)|
+10,137,Quality Index Adv,575,-389,53,13,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|||128-128-128,0,0,0,0,0,0
+10,138,Error ref,1269,-211,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,139,Contam ref,1265,-136,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,140,Performance deterioration,1087,-192,52,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,141,138,140,1,0,0,0,0,192,0,-1--1--1,,1|(1116,-208)|
+1,142,139,140,1,0,0,0,0,192,0,-1--1--1,,1|(1184,-129)|
+1,143,4,140,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,144,51,140,1,0,0,0,0,192,0,-1--1--1,,1|(941,95)|
+10,145,Min Audit,395,209,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,146,Max Audit,248,-18,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,147,Audit adjust time,601,8,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,148,Audit Intensity Adv,560,82,50,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,149,148,19,1,0,0,0,0,192,0,-1--1--1,,1|(429,361)|
+1,150,148,9,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+1,151,148,14,1,0,0,0,0,192,0,-1--1--1,,1|(589,317)|
+1,152,148,46,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,153,Audit Target,293,86,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,154,146,153,1,0,0,0,0,192,0,-1--1--1,,1|(231,17)|
+1,155,145,153,1,0,0,0,0,192,0,-1--1--1,,1|(341,192)|
+12,156,48,382,81,10,8,0,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,157,159,156,100,0,0,22,0,192,0,-1--1--1,,1|(419,81)|
+1,158,159,148,4,0,0,22,0,192,0,-1--1--1,,1|(484,81)|
+11,159,0,452,81,6,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,160,Audit adjusment,452,115,46,26,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,161,147,160,1,0,0,0,0,192,0,-1--1--1,,1|(454,36)|
+1,162,153,160,1,0,0,0,0,192,0,-1--1--1,,1|(377,141)|
+1,163,148,160,1,0,0,0,0,192,0,-1--1--1,,1|(526,36)|
+1,164,120,153,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+12,165,0,3160,-135,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+Sorting Error rate Adv,Graph
+10,166,Human intervention burden,785,64,53,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,167,148,166,1,0,0,0,0,192,0,-1--1--1,,1|(661,86)|
+10,168,Intervention burden factor,805,-40,57,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,169,168,166,1,0,0,0,0,192,0,-1--1--1,,1|(762,14)|
+10,170,Cumulative emission Adv,1988,744,65,26,3,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,171,113,170,0,0,0,0,0,192,0,-1--1--1,,1|(0,0)|
+10,172,Relative performance gap,778,-421,66,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,173,140,172,1,0,0,0,0,192,0,-1--1--1,,1|(987,-250)|
+1,174,172,125,1,0,0,0,0,192,0,-1--1--1,,1|(434,-394)|
+1,175,172,130,1,0,0,0,0,192,0,-1--1--1,,1|(663,-282)|
+1,176,172,153,1,0,0,0,0,192,0,-1--1--1,,1|(330,-242)|
+10,177,Expected adjustment time,1394,-306,56,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+10,178,Performance expected deterioration,1160,-568,59,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,179,140,178,1,0,0,0,0,192,0,-1--1--1,,1|(1050,-390)|
+1,180,177,178,1,0,0,0,0,192,0,-1--1--1,,1|(1405,-439)|
+1,181,178,172,1,0,0,0,0,192,0,-1--1--1,,1|(933,-563)|
+1,182,61,67,1,0,0,0,0,192,0,-1--1--1,,1|(1168,824)|
+10,183,Drift shock magnitude Adv,1179,587,58,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,184,183,67,1,0,0,0,0,192,0,-1--1--1,,1|(1194,659)|
+10,185,Rework time,1470,111,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,186,185,44,1,0,0,0,0,192,0,-1--1--1,,1|(1368,107)|
+1,187,145,148,1,0,0,0,0,192,1,-1--1--1,,1|(499,138)|
+10,188,Fuben eki switch,344,-82,46,26,8,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,189,188,125,1,0,0,0,0,192,0,-1--1--1,,1|(362,-115)|
+12,190,0,4377,-132,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+AI Model Accuracy Adv,Graph
+12,191,0,3769,-133,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+Operator Skill Adv,Graph
+12,192,0,3163,319,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+Contamination stock Adv,Graph
+12,193,0,3769,319,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+Audit Intensity Adv,Graph
+12,194,0,2554,-136,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+Fuben eki,Graph
+12,195,0,2555,320,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+Cumulative emission Adv,Graph
+12,196,0,4379,319,300,200,0,15,0,0,2,0,0,0,0,0,0,0,0,0
+Human intervention burden,Graph
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 3
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,6,2
+12,1,0,10076,16063,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Comparison_QI
+12,2,0,10700,16062,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Comparison_sorting_error_rate
+12,3,0,10077,16474,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Total_emission_comparison
+12,4,0,10699,16478,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Contamination_Stock_Comparison
+12,5,0,11322,16060,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Operator_skill_Comparison
+12,6,0,11320,16480,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+AI_Accuracy_Comparison
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Graph
+$-1--1--1,0,|12||-1--1--1|-1--1--1|-1--1--1|-1--1--1|-1--1--1|96,96,82,2
+12,1,0,-1923,422,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Fuben-eki_activation
+12,2,0,-1305,421,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Human-AI_response
+12,3,0,-1304,829,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Sorting_&_Material_Prerformance
+12,4,0,-1923,831,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Sustainability_outcome
+12,5,0,-475,390,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Test_1
+12,6,0,143,389,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Test_2
+12,7,0,-467,845,303,214,8,15,0,0,1,0,0,0,0,0,0,0,0,0
+Test
+12,8,0,173,829,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+No_Shock
+12,9,0,809,480,300,200,0,15,0,0,1,0,0,0,0,0,0,0,0,0
+Revised
+///---\\\
+:GRAPH Comparison_QI
+:TITLE Comparison QI
+:SCALE
+:VAR Quality Index
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Quality Index Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Comparison_sorting_error_rate
+:TITLE Comparison sorting error rate
+:SCALE
+:VAR Sorting Error rate
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Sorting Error rate Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Total_emission_comparison
+:TITLE Total emission comparison
+:SCALE
+:VAR Total Emission
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Total Emission Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Contamination_Stock_Comparison
+:TITLE Contamination Stock Comparison
+:SCALE
+:VAR Contamination stock
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Contamination stock Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Operator_skill_Comparison
+:TITLE Operator skill Comparison
+:SCALE
+:VAR Operator Skill
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Operator Skill Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH AI_Accuracy_Comparison
+:TITLE AI Accuracy Comparison
+:SCALE
+:VAR AI Model Accuracy
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR AI Model Accuracy Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Fuben-eki_activation
+:TITLE Fuben-eki activation
+:SCALE
+:VAR Shock Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR Incident
+:DATASET 
+:LINE-WIDTH 1
+:VAR Fuben eki
+:DATASET 
+:LINE-WIDTH 1
+:VAR Audit Intensity Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Human-AI_response
+:TITLE Human-AI response
+:SCALE
+:VAR Operator Skill Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR AI Model Accuracy Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR Trust AI Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Sorting_&_Material_Prerformance
+:TITLE Sorting & Material Prerformance
+:SCALE
+:VAR Sorting Error rate Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR Quality Index Adv
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Contamination stock Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Sustainability_outcome
+:TITLE Sustainability outcome
+:SCALE
+:VAR Base recycled share Adv
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Virgin demand Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR Total Emission Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Test_1
+:TITLE Test 1
+:SCALE
+:VAR Quality Index Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR Sorting Error rate Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR Operator Skill Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR AI Model Accuracy Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR Trust AI Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Test_2
+:TITLE Test 2
+:SCALE
+:VAR Fuben eki
+:DATASET 
+:LINE-WIDTH 1
+:VAR Incident
+:DATASET 
+:LINE-WIDTH 1
+:VAR Audit Intensity Adv
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Contamination stock Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Test
+:TITLE Test
+:SCALE
+:VAR Fuben eki
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Performance deterioration
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Expected performance deterioration
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Relative performance gap
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Audit Intensity Adv
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH No_Shock
+:TITLE No Shock
+:SCALE
+:VAR Performance deterioration
+:DATASET 
+:LINE-WIDTH 1
+:VAR Relative performance gap
+:DATASET 
+:LINE-WIDTH 1
+
+:GRAPH Revised
+:TITLE Revised
+:SCALE
+:VAR Operator Skill Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR AI Model Accuracy Adv
+:DATASET 
+:LINE-WIDTH 1
+:VAR Sorting Error rate Adv
+:DATASET 
+:LINE-WIDTH 1
+:SCALE
+:VAR Contamination stock Adv
+:DATASET 
+:LINE-WIDTH 1
+:L<%^E!@
+1:Fuben eki shock.vdfx
+1:Conventional shock.vdfx
+1:Fuben eki normal.vdfx
+1:Conventional normal.vdfx
+4:Time
+5:Fuben eki switch
+9:Fuben eki shock
+19:76,1
+24:0
+25:100
+26:100
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+95:0
+96:0
+97:0
+77:0
+78:0
+102:1
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
+103:8,8,8,3,8
+105:0,0,0,0,0,0,0,0,0,0
+104:Vensim Sans|12||0-0-0|0-0-0|-1--1--1|0-0-255|192-192-192|-1--1--1
